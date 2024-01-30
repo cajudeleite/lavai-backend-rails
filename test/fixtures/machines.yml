@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vm_pay_id: 1
+  name: MyString
+  store: one
+  street_name: MyString
+  street_number: 1
+  cep: MyString
+  latitude: 1.5
+  longitude: 1.5
+
+two:
+  vm_pay_id: 1
+  name: MyString
+  store: two
+  street_name: MyString
+  street_number: 1
+  cep: MyString
+  latitude: 1.5
+  longitude: 1.5
