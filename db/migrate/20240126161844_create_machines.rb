@@ -10,8 +10,8 @@ class CreateMachines < ActiveRecord::Migration[7.0]
       t.string :cep
       t.float :latitude
       t.float :longitude
-      t.boolean :open
-      t.boolean :available
+      t.boolean :open, default: false, null: false
+      t.boolean :available, default: false, null: false
       t.time :last_run
 
       t.timestamps
