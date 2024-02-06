@@ -30,8 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_183757) do
     t.float "latitude"
     t.float "longitude"
     t.boolean "open", default: false, null: false
-    t.boolean "available", default: false, null: false
-    t.time "last_run"
+    t.boolean "available", default: true, null: false
+    t.string "last_run"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_machines_on_store_id"

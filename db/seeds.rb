@@ -71,9 +71,9 @@ graca << Machine.create(vm_pay_id: 41916, name: 'Graça', washer: false, store: 
 
 maio = []
 maio << Machine.create(vm_pay_id: 49899, name: '24 de Maio', washer: true, store: dia, street_name: "Rua 24 de Maio", street_number: 108, cep: '01041-000', latitude: -23.544141, longitude: -46.6396525)
-maio << Machine.create(vm_pay_id: 49899, name: '24 de Maio', washer: true, store: dia, street_name: "Rua 24 de Maio", street_number: 108, cep: '01041-000', latitude: -23.544141, longitude: -46.6396525)
+maio << Machine.create(vm_pay_id: 49899, name: '24 de Maio', washer: false, store: dia, street_name: "Rua 24 de Maio", street_number: 108, cep: '01041-000', latitude: -23.544141, longitude: -46.6396525)
 maio << Machine.create(vm_pay_id: 47177, name: '24 de Maio', washer: true, store: dia, street_name: "Rua 24 de Maio", street_number: 108, cep: '01041-000', latitude: -23.544141, longitude: -46.6396525)
-maio << Machine.create(vm_pay_id: 47177, name: '24 de Maio', washer: true, store: dia, street_name: "Rua 24 de Maio", street_number: 108, cep: '01041-000', latitude: -23.544141, longitude: -46.6396525)
+maio << Machine.create(vm_pay_id: 47177, name: '24 de Maio', washer: false, store: dia, street_name: "Rua 24 de Maio", street_number: 108, cep: '01041-000', latitude: -23.544141, longitude: -46.6396525)
 
 taipas = []
 taipas << Machine.create(vm_pay_id: 41974, name: 'Taipas', washer: true, store: extra, street_name: "Avenida Elísio Teixeira Leite", street_number: 7098, cep: '02810-000', latitude: -23.443347, longitude: -46.717144)
@@ -107,9 +107,7 @@ def next_time_for_day(day, hour, minute = 0)
                raise ArgumentError, 'Invalid day'
              end
 
-  next_time = Time.new(next_day.year, next_day.month, next_day.day, hour, minute, 0).in_time_zone('America/Sao_Paulo')
-  puts "Next #{day.capitalize} at #{hour}:#{minute} : #{next_time}"
-  next_time
+  Time.new(next_day.year, next_day.month, next_day.day, hour, minute, 0).in_time_zone('America/Sao_Paulo')
 end
 
 
@@ -160,6 +158,8 @@ CloseMachineJob.set(wait_until: next_time_for_day('saturday', 18, 30)).perform_l
 
 
 CloseMachineJob.set(wait_until: next_time_for_day('sunday', 13)).perform_later([maio])
+
+UpdateStatusJob.perform_now
 
 puts '------------Done-----------'
 puts '---------------------------'

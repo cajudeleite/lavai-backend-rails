@@ -11,8 +11,8 @@ class CreateMachines < ActiveRecord::Migration[7.0]
       t.float :latitude
       t.float :longitude
       t.boolean :open, default: false, null: false
-      t.boolean :available, default: false, null: false
-      t.time :last_run
+      t.boolean :available, default: true, null: false
+      t.string :last_run
 
       t.timestamps
     end
