@@ -2,8 +2,10 @@ class OpenMachineJob < ApplicationJob
   queue_as :default
 
   def perform(machines)
-    machines.each do |machine|
-      machine.open!
+    machines.each do |washer_and_dryer|
+      washer_and_dryer.each do |machine|
+        machine.open!
+      end
     end
 
     next_week = Time.at(((Time.now + 604800).to_f / 60).round * 60)

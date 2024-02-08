@@ -92,20 +92,30 @@ bernardo << Machine.create(vm_pay_id: 41913, name: 'São Bernardo', washer: fals
 puts '------Scheduling jobs------'
 puts '---------------------------'
 
-def next_time_for_day(day, hour, minute = 0)
-  current_time = Time.zone.now.in_time_zone('America/Sao_Paulo')
 
-  next_day = case day.downcase
-             when 'sunday' then current_time.next_week(:sunday)
-             when 'monday' then current_time.next_week(:monday)
-             when 'tuesday' then current_time.next_week(:tuesday)
-             when 'wednesday' then current_time.next_week(:wednesday)
-             when 'thursday' then current_time.next_week(:thursday)
-             when 'friday' then current_time.next_week(:friday)
-             when 'saturday' then current_time.next_week(:saturday)
-             else
-               raise ArgumentError, 'Invalid day'
-             end
+def next_time_for_day(day, hour, minute = 0)
+  current_time = Time.now.in_time_zone('America/Sao_Paulo')
+
+  # Find the day of the week for the desired day
+  desired_day = case day.downcase
+                when 'sunday' then 0
+                when 'monday' then 1
+                when 'tuesday' then 2
+                when 'wednesday' then 3
+                when 'thursday' then 4
+                when 'friday' then 5
+                when 'saturday' then 6
+                else
+                  raise ArgumentError, 'Invalid day'
+                end
+
+  # Calculate the next occurrence for this week if the desired day hasn't passed yet
+  if current_time.wday <= desired_day
+    next_day = current_time + (desired_day - current_time.wday).days
+  else
+    # Calculate the next occurrence for next week
+    next_day = current_time + ((7 - current_time.wday + desired_day) % 7).days
+  end
 
   Time.new(next_day.year, next_day.month, next_day.day, hour, minute, 0).in_time_zone('America/Sao_Paulo')
 end
