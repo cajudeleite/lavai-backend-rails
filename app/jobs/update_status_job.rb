@@ -2,6 +2,7 @@ class UpdateStatusJob < ApplicationJob
   require 'net/http'
   require 'uri'
   require'json'
+  # 'HTTParty'
 
   queue_as :default
 
@@ -11,21 +12,20 @@ class UpdateStatusJob < ApplicationJob
     machines.reverse.each do |machine|
       local_machines = Machine.where(vm_pay_id: machine['machine_id'])
       is_washer = machine['coil'] == "2"
-      local_machine = local_machines.where(washer: is_washer)
-      local_machine = local_machine.first
+      local_machine = local_machines.find_by(washer: is_washer)
 
       if local_machine
         local_machine.last_run = machine['occurred_at']
         last_run = Time.parse(machine['occurred_at'])
 
         if local_machine.washer
-          if Time.now - last_run > 35 * 60
+          if Time.now - last_run > 35.minute
             local_machine.available = true
           else
             local_machine.available = false
           end
         else
-          if Time.now - last_run > 45 * 60
+          if Time.now - last_run > 45.minute
             local_machine.available = true
           else
             local_machine.available = false
