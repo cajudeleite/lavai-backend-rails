@@ -29,9 +29,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_183757) do
     t.string "cep"
     t.float "latitude"
     t.float "longitude"
-    t.boolean "open", default: false, null: false
     t.boolean "available", default: true, null: false
     t.string "last_run"
+    t.float "monday_opens"
+    t.float "monday_closes"
+    t.float "tuesday_opens"
+    t.float "tuesday_closes"
+    t.float "wednesday_opens"
+    t.float "wednesday_closes"
+    t.float "thursday_opens"
+    t.float "thursday_closes"
+    t.float "friday_opens"
+    t.float "friday_closes"
+    t.float "saturday_opens"
+    t.float "saturday_closes"
+    t.float "sunday_opens"
+    t.float "sunday_closes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["store_id"], name: "index_machines_on_store_id"

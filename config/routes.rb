@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  resources :machines, only: [:index, :create]
+  resources :machines, only: [:index, :create, :update]
 
    scope :monitoring do
     Sidekiq::Web.use Rack::Auth::Basic do |username, password|
